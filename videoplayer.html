@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Video Player</title>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #container {
+            width: 100%;
+            max-width: 960px;
+        }
+        
+        video {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <video id="videoPlayer" playsinline controls>
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        // JavaScript to handle URL and load video
+        function getVideoSource() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoSource = urlParams.get('video'); // Get 'video' from the URL parameters
+        
+            if (videoSource) {
+                const videoElement = document.getElementById('videoPlayer');
+                const sourceElement = document.getElementById('videoSource');
+        
+                sourceElement.src = videoSource; // Set the source for the video
+                videoElement.load(); // Load the new video
+        
+                // Extract the file name from the video source and set the page title
+                const videoName = videoSource.split('/').pop().split('.')[0]; // Get the file name without extension
+                document.title = videoName; // Update the page title
+            }
+        }
+        
+        // Call the function when the document is ready
+        document.addEventListener('DOMContentLoaded', getVideoSource);
+    </script>
+</body>
+
+</html>
